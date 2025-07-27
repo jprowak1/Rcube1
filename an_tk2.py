@@ -69,12 +69,12 @@ def res_cube():
 
 def upd_cube(mv):
     global cube_arr
-    tmp2 =np.empty([3])
     if(mv == "L"):
-        tmp2 =np.copy(cube_arr[2:0:])
-        print(f"tmp2 = {tmp2}")
-        # cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = cube_arr[3,0], cube_arr[4,0],cube_arr[0,2], cube_arr[2,0]
-        cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = cube_arr[3,0], cube_arr[4,0],cube_arr[0,2], tmp2
+        tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
+        #cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = cube_arr[3,0], cube_arr[4,0],cube_arr[0,2], cube_arr[2,0]
+        #cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2,:] = cube_arr[3,0], cube_arr[4,0],cube_arr[0,2], tmp2
+        cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, tmp0, tmp2
+
 
         
        
