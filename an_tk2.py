@@ -69,15 +69,12 @@ def res_cube():
 
 def upd_cube(mv):
     global cube_arr
-    if(mv == "L"):
+    if(mv == "U"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
-        #cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = cube_arr[3,0], cube_arr[4,0],cube_arr[0,2], cube_arr[2,0]
-        #cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2,:] = cube_arr[3,0], cube_arr[4,0],cube_arr[0,2], tmp2
         cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, tmp0, tmp2
-
-
+        cube_arr[2]= np.rot90(cube_arr[2])
+    elif (mv == "R")
         
-       
 
     print(f"cube2 = {cube_arr[2]}\n cube0 = {cube_arr[0]}")
     return
@@ -85,9 +82,9 @@ def upd_cube(mv):
 root = tk.Tk()
 root.title("Radiobutton")
 root.geometry("360x480")
-add_to_queue = tk.Button(root, text="add RB to queue", command=pr_var)
+add_to_queue = tk.Button(root, text="add RadBut to queue", command=pr_var)
 add_to_queue.pack()
-rm_fr_queue = tk.Button(root, text="rm RB from queue", command=rm_var)
+rm_fr_queue = tk.Button(root, text="rm RadBut from queue", command=rm_var)
 rm_fr_queue.pack()
 res_cube = tk.Button(root, text="reset cube", command=res_cube)
 res_cube.pack()
