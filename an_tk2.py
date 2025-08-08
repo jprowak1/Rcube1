@@ -72,11 +72,13 @@ def upd_cube(mv):
     if(mv == "U"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
         cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, tmp0, tmp2
-        cube_arr[2]= np.rot90(cube_arr[2])
-    elif (mv == "R")
-        
+        cube_arr[1]= np.rot90(cube_arr[1])
+    # elif (mv == "R"):
+        tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,2]), np.copy(cube_arr[3,:,2]),np.copy(cube_arr[1,:,0:2]),np.copy(cube_arr[0,:,2])
+        cube_arr[3,:,2], cube_arr[1,:,2], cube_arr[0,:,2],cube_arr[5,:,2] = tmp5, tmp3, tmp1,tmp0
+        cube_arr[4] =np.rot90(cube_arr[4])
 
-    print(f"cube2 = {cube_arr[2]}\n cube0 = {cube_arr[0]}")
+    #"cube2 = {cube_arr[2]}\n cube0 = {cube_arr[0]}")
     return
 
 root = tk.Tk()
