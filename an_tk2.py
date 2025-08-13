@@ -11,6 +11,7 @@ fig, axs = plt.subplots(4,3)
 iml = []
 count = 0
 const_arr =[]
+lifo =[]
 rdy = True
 # red 6.2, yell 4.8, green 3, blue 2, orange 5.6, white 9.9
 #     0
@@ -70,13 +71,18 @@ def res_cube():
     rdy = True
 
 def lst_move():
-    global cube_arr, lst_cube_arr
-    cube_arr = np.copy(lst_cube_arr)
-    # grey out button
+    global cube_arr, lifo
+    if lifo:
+        cube_arr = np.copy(lifo.pop())
+    else:
+        print("LIFO is empty")
+    # print(" Popping {lifo}")
+
 
 def upd_cube(mv):
-    global cube_arr,lst_cube_arr
-    lst_cube_arr = np.copy(cube_arr)
+    global cube_arr,lifo
+    lifo.append(np.copy(cube_arr))
+    
     if(mv == "U"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
         cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, tmp0, tmp2
