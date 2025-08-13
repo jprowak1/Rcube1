@@ -19,6 +19,7 @@ rdy = True
 #     5  
 red,green,yellow,orange,blue,white =[6.2,3,4.8,5.6,2,9.9]
 cube_arr = np.empty((6,3,3))
+lst_cube_arr = np.empty((6,3,3))
 
 def reset_cube_array():
     global cube_arr
@@ -53,6 +54,7 @@ def pr_var():
     rb_var = variable.get()
     print(f"Var = {rb_var}")
     lb.insert(tk.END,rb_var)
+    # enable lst_move button
 
 def rm_var():
     rmv = lb.get(0)
@@ -67,8 +69,14 @@ def res_cube():
         iml[i].set_data(cube_arr[i])
     rdy = True
 
+def lst_move():
+    global cube_arr, lst_cube_arr
+    cube_arr = np.copy(lst_cube_arr)
+    # grey out button
+
 def upd_cube(mv):
-    global cube_arr
+    global cube_arr,lst_cube_arr
+    lst_cube_arr = np.copy(cube_arr)
     if(mv == "U"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
         cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, tmp0, tmp2
@@ -90,6 +98,8 @@ rm_fr_queue = tk.Button(root, text="rm RadBut from queue", command=rm_var)
 rm_fr_queue.pack()
 res_cube = tk.Button(root, text="reset cube", command=res_cube)
 res_cube.pack()
+lst_move=tk.Button(root, text="undo move", command=lst_move)
+lst_move.pack()
 lb = tk.Listbox(root)
 lb.pack()
 choices = ["R", "L", "U","D"]
