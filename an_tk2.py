@@ -20,11 +20,31 @@ rdy = True
 #     5  
 red,green,yellow,orange,blue,white =[6.2,3,4.8,5.6,2,9.9]
 cube_arr = np.empty((6,3,3))
-lst_cube_arr = np.empty((6,3,3))
+#------------------------------------
+# Patterns to evaluate move commands
+#------------------------------------
+cube_r_tst =np.full((6,3,3),white)
+cube_r_tst[3,0,2], cube_r_tst[3,1,2], cube_r_tst[3,2,2] = red, yellow, blue
+cube_l_tst =np.full((6,3,3),white)
+cube_l_tst[3,0,0], cube_l_tst[3,1,0], cube_l_tst[3,2,0] = red, yellow, blue
+cube_u_tst =np.full((6,3,3),white)
+cube_u_tst[3,0] = [red, yellow, blue]
+cube_d_tst =np.full((6,3,3),white)
+cube_d_tst[3,2] = [red, yellow, blue]
+# cube_l_tst =np.full((6,3,3),white)
+# cube_l_tst[3,0,0], cube_l_tst[3,1,0], cube_l_tst[3,2,0] = red, yellow, blue
+# cube_l_tst =np.full((6,3,3),white)
+# cube_l_tst[3,0,0], cube_l_tst[3,1,0], cube_l_tst[3,2,0] = red, yellow, blue
+
+
+
+
+#------------------------------------
+
+
 
 def reset_cube_array():
     global cube_arr
-    # for i ,val in enumerate([9.9,2,3,4.8,5.5, 6.2]):
     for i, val in enumerate([white,orange,green,yellow,blue,red]):
         cube_arr[i] = np.full((3,3),val  )
     print(f" RESETING cube_arr  {cube_arr}")
@@ -50,6 +70,22 @@ def init():
 #     for i in range(0,6):
 #         iml[i].set_data(cube_arr[i])
 
+def r_tst():
+    global cube_arr
+    cube_arr = cube_r_tst
+    
+def l_tst():
+    global cube_arr
+    cube_arr = cube_l_tst
+    
+def u_tst():
+    global cube_arr
+    cube_arr = cube_u_tst
+    
+def d_tst():
+    global cube_arr
+    cube_arr = cube_d_tst
+    
 
 def pr_var():
     rb_var = variable.get()
@@ -106,6 +142,15 @@ res_cube = tk.Button(root, text="reset cube", command=res_cube)
 res_cube.pack()
 lst_move=tk.Button(root, text="undo move", command=lst_move)
 lst_move.pack()
+# test buttons for commands
+r_tst =tk.Button(root, text="R test cube", command=r_tst)
+r_tst.pack()
+l_tst =tk.Button(root, text="L test cube", command=l_tst)
+l_tst.pack()
+u_tst =tk.Button(root, text="U test cube", command=u_tst)
+u_tst.pack()
+d_tst =tk.Button(root, text="D test cube", command=d_tst)
+d_tst.pack()
 lb = tk.Listbox(root)
 lb.pack()
 choices = ["R", "L", "U","D"]
