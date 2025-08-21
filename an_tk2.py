@@ -23,14 +23,6 @@ cube_arr = np.empty((6,3,3))
 #------------------------------------
 # Patterns to evaluate move commands
 #------------------------------------
-cube_r_tst =np.full((6,3,3),white)
-cube_r_tst[3,0,2], cube_r_tst[3,1,2], cube_r_tst[3,2,2] = red, yellow, blue
-cube_l_tst =np.full((6,3,3),white)
-cube_l_tst[3,0,0], cube_l_tst[3,1,0], cube_l_tst[3,2,0] = red, yellow, blue
-cube_u_tst =np.full((6,3,3),white)
-cube_u_tst[3,0] = [red, yellow, blue]
-cube_d_tst =np.full((6,3,3),white)
-cube_d_tst[3,2] = [red, yellow, blue]
 # cube_l_tst =np.full((6,3,3),white)
 # cube_l_tst[3,0,0], cube_l_tst[3,1,0], cube_l_tst[3,2,0] = red, yellow, blue
 # cube_l_tst =np.full((6,3,3),white)
@@ -72,18 +64,26 @@ def init():
 
 def r_tst():
     global cube_arr
+    cube_r_tst =np.full((6,3,3),white)
+    cube_r_tst[3,0,2], cube_r_tst[3,1,2], cube_r_tst[3,2,2] = red, yellow, blue     
     cube_arr = cube_r_tst
     
 def l_tst():
     global cube_arr
+    cube_l_tst =np.full((6,3,3),white)
+    cube_l_tst[3,0,0], cube_l_tst[3,1,0], cube_l_tst[3,2,0] = red, yellow, blue
     cube_arr = cube_l_tst
     
 def u_tst():
     global cube_arr
+    cube_u_tst =np.full((6,3,3),white)
+    cube_u_tst[3,0] = [red, yellow, blue]   
     cube_arr = cube_u_tst
     
 def d_tst():
     global cube_arr
+    cube_d_tst =np.full((6,3,3),white)
+    cube_d_tst[3,2] = [red, yellow, blue]       
     cube_arr = cube_d_tst
     
 
@@ -121,12 +121,22 @@ def upd_cube(mv):
     
     if(mv == "U"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
-        cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, tmp0, tmp2
+        cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, np.flip(tmp0), np.flip(tmp2)
         cube_arr[1]= np.rot90(cube_arr[1])
     elif (mv == "R"):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,2]), np.copy(cube_arr[3,:,2]),np.copy(cube_arr[1,:,-1]),np.copy(cube_arr[0,:,2])
         cube_arr[3,:,2], cube_arr[1,:,2], cube_arr[0,:,2],cube_arr[5,:,2] = tmp5, tmp3, tmp1,tmp0
         cube_arr[4] =np.rot90(cube_arr[4])
+    elif (mv == "D"):
+        tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,2]), np.copy(cube_arr[4,2]), np.copy(cube_arr[0,0]),np.copy(cube_arr[2,2])
+        cube_arr[2,2],cube_arr[3,2],cube_arr[4,2],cube_arr[0,0] = np.flip(tmp0),tmp2,tmp3,np.flip(tmp4)
+        cube_arr[5] = np.rot90(cube_arr[5])
+      
+    elif (mv == "L"):
+        tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,0]), np.copy(cube_arr[3,:,0]),np.copy(cube_arr[1,:,0]),np.copy(cube_arr[0,:,0])
+        cube_arr[3,:,0], cube_arr[1,:,0], cube_arr[0,:,0],cube_arr[5,:,0] = tmp1, np.flip(tmp0), np.flip(tmp5),tmp3
+        cube_arr[2] = np.rot90(cube_arr[2])
+    
 
     #"cube2 = {cube_arr[2]}\n cube0 = {cube_arr[0]}")
     return
