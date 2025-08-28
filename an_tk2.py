@@ -13,6 +13,7 @@ count = 0
 const_arr =[]
 lifo =[]
 rdy = True
+lst_but =0
 # red 6.2, yell 4.8, green 3, blue 2, orange 5.6, white 9.9
 #     0
 #     1
@@ -134,7 +135,7 @@ def upd_cube(mv):
       
     elif (mv == "L"):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,0]), np.copy(cube_arr[3,:,0]),np.copy(cube_arr[1,:,0]),np.copy(cube_arr[0,:,0])
-        cube_arr[3,:,0], cube_arr[1,:,0], cube_arr[0,:,0],cube_arr[5,:,0] = tmp1, np.flip(tmp0), np.flip(tmp5),tmp3
+        cube_arr[3,:,0], cube_arr[1,:,0], cube_arr[0,:,0],cube_arr[5,:,0] = tmp1, (tmp0), (tmp5),tmp3
         cube_arr[2] = np.rot90(cube_arr[2])
     
 
