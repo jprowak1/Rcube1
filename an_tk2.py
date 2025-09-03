@@ -124,6 +124,10 @@ def upd_cube(mv):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
         cube_arr[2,0],cube_arr[3,0] , cube_arr[4,0], cube_arr[0,2] = tmp3, tmp4, np.flip(tmp0), np.flip(tmp2)
         cube_arr[1]= np.rot90(cube_arr[1])
+        cube_arr[1]= np.rot90(cube_arr[1])
+        cube_arr[1]= np.rot90(cube_arr[1])
+
+
     elif (mv == "R"):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,2]), np.copy(cube_arr[3,:,2]),np.copy(cube_arr[1,:,-1]),np.copy(cube_arr[0,:,2])
         cube_arr[3,:,2], cube_arr[1,:,2], cube_arr[0,:,2],cube_arr[5,:,2] = tmp5, tmp3, tmp1,tmp0
@@ -132,6 +136,9 @@ def upd_cube(mv):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,2]), np.copy(cube_arr[4,2]), np.copy(cube_arr[0,0]),np.copy(cube_arr[2,2])
         cube_arr[2,2],cube_arr[3,2],cube_arr[4,2],cube_arr[0,0] = np.flip(tmp0),tmp2,tmp3,np.flip(tmp4)
         cube_arr[5] = np.rot90(cube_arr[5])
+        cube_arr[5] = np.rot90(cube_arr[5])
+        cube_arr[5] = np.rot90(cube_arr[5])
+
       
     elif (mv == "L"):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,0]), np.copy(cube_arr[3,:,0]),np.copy(cube_arr[1,:,0]),np.copy(cube_arr[0,:,0])
