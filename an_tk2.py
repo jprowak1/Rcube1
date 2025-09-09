@@ -86,6 +86,12 @@ def d_tst():
     cube_d_tst =np.full((6,3,3),white)
     cube_d_tst[3,2] = [red, yellow, blue]       
     cube_arr = cube_d_tst
+
+def f_tst():
+    global cube_arr
+    cube_f_tst =np.full((6,3,3),white)
+    cube_f_tst[4,:,0] = [red, yellow, blue]       
+    cube_arr = cube_f_tst
     
 
 def pr_var():
@@ -126,8 +132,6 @@ def upd_cube(mv):
         cube_arr[1]= np.rot90(cube_arr[1])
         cube_arr[1]= np.rot90(cube_arr[1])
         cube_arr[1]= np.rot90(cube_arr[1])
-
-
     elif (mv == "R"):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,2]), np.copy(cube_arr[3,:,2]),np.copy(cube_arr[1,:,-1]),np.copy(cube_arr[0,:,2])
         cube_arr[3,:,2], cube_arr[1,:,2], cube_arr[0,:,2],cube_arr[5,:,2] = tmp5, tmp3, tmp1,tmp0
@@ -137,16 +141,19 @@ def upd_cube(mv):
         cube_arr[2,2],cube_arr[3,2],cube_arr[4,2],cube_arr[0,0] = np.flip(tmp0),tmp2,tmp3,np.flip(tmp4)
         cube_arr[5] = np.rot90(cube_arr[5])
         cube_arr[5] = np.rot90(cube_arr[5])
-        cube_arr[5] = np.rot90(cube_arr[5])
-
-      
+        cube_arr[5] = np.rot90(cube_arr[5])  
     elif (mv == "L"):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,0]), np.copy(cube_arr[3,:,0]),np.copy(cube_arr[1,:,0]),np.copy(cube_arr[0,:,0])
         cube_arr[3,:,0], cube_arr[1,:,0], cube_arr[0,:,0],cube_arr[5,:,0] = tmp1, (tmp0), (tmp5),tmp3
         cube_arr[2] = np.rot90(cube_arr[2])
-    
 
-    #"cube2 = {cube_arr[2]}\n cube0 = {cube_arr[0]}")
+    # elif (mv == "B"):
+
+    elif (mv == "F"):
+        tmp2, tmp1, tmp4, tmp5 = np.copy(cube_arr[2,:,2]), np.copy(cube_arr[1,2,:]), np.copy(cube_arr[4,:,0]), np.copy(cube_arr[5,0,:])
+        cube_arr[2,:,2], cube_arr[1,2,:], cube_arr[4,:,0], cube_arr[5,0,:] = tmp5, np.flip(tmp2), (tmp1),  np.flip(tmp4)
+        cube_arr[3] =np.rot90(cube_arr[3])
+
     return
 
 root = tk.Tk()
@@ -169,9 +176,13 @@ u_tst =tk.Button(root, text="U test cube", command=u_tst)
 u_tst.pack()
 d_tst =tk.Button(root, text="D test cube", command=d_tst)
 d_tst.pack()
+f_tst =tk.Button(root, text="F test cube", command=f_tst)
+f_tst.pack()
+# b_tst =tk.Button(root, text="B test cube", command=b_tst)
+# b_tst.pack()
 lb = tk.Listbox(root)
 lb.pack()
-choices = ["R", "L", "U","D"]
+choices = ["R", "L", "U","D", "F", "B"]
 variable = tk.StringVar(root, f"{choices[0]}")
 for choice in choices:
     tk.Radiobutton(
