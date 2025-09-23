@@ -93,6 +93,11 @@ def f_tst():
     cube_f_tst[4,:,0] = [red, yellow, blue]       
     cube_arr = cube_f_tst
     
+def b_tst():
+    global cube_arr
+    cube_b_tst =np.full((6,3,3),white)
+    cube_b_tst[1,0,:] = [red, yellow, blue]       
+    cube_arr = cube_b_tst
 
 def pr_var():
     rb_var = variable.get()
@@ -147,7 +152,10 @@ def upd_cube(mv):
         cube_arr[3,:,0], cube_arr[1,:,0], cube_arr[0,:,0],cube_arr[5,:,0] = tmp1, (tmp0), (tmp5),tmp3
         cube_arr[2] = np.rot90(cube_arr[2])
 
-    # elif (mv == "B"):
+    elif (mv == "B"):
+        tmp1, tmp2, tmp4,tmp5 = np.copy(cube_arr[1,0,:]), np.copy(cube_arr[2,:,0]), np.copy(cube_arr[4,0,:]),np.copy(cube_arr[5,2,:])
+        cube_arr[1,0,:],cube_arr[2,:,0], cube_arr[4,2,:], cube_arr[5,2,:] = np.flip(tmp4),np.flip(tmp1),tmp5, np.flip(tmp2)
+        cube_arr[0] = np.rot90(cube_arr[0])
 
     elif (mv == "F"):
         tmp2, tmp1, tmp4, tmp5 = np.copy(cube_arr[2,:,2]), np.copy(cube_arr[1,2,:]), np.copy(cube_arr[4,:,0]), np.copy(cube_arr[5,0,:])
@@ -178,6 +186,8 @@ d_tst =tk.Button(root, text="D test cube", command=d_tst)
 d_tst.pack()
 f_tst =tk.Button(root, text="F test cube", command=f_tst)
 f_tst.pack()
+b_tst =tk.Button(root, text="B test cube", command=b_tst)
+b_tst.pack()
 # b_tst =tk.Button(root, text="B test cube", command=b_tst)
 # b_tst.pack()
 lb = tk.Listbox(root)
