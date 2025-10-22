@@ -153,8 +153,8 @@ def upd_cube(mv):
         cube_arr[2] = np.rot90(cube_arr[2])
 
     elif (mv == "B"):
-        tmp1, tmp2, tmp4,tmp5 = np.copy(cube_arr[1,0,:]), np.copy(cube_arr[2,:,0]), np.copy(cube_arr[4,0,:]),np.copy(cube_arr[5,2,:])
-        cube_arr[1,0,:],cube_arr[2,:,0], cube_arr[4,2,:], cube_arr[5,2,:] = np.flip(tmp4),np.flip(tmp1),tmp5, np.flip(tmp2)
+        tmp1, tmp2, tmp4,tmp5 = np.copy(cube_arr[1,0,:]), np.copy(cube_arr[2,:,0]), np.copy(cube_arr[4,:,2]),np.copy(cube_arr[5,2,:])
+        cube_arr[1,0,:],cube_arr[2,:,0], cube_arr[4,:,2], cube_arr[5,2,:] = tmp4,np.flip(tmp1),np.flip(tmp5), np.copy(tmp2)
         cube_arr[0] = np.rot90(cube_arr[0])
 
     elif (mv == "F"):
