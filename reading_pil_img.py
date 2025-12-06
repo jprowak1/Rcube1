@@ -22,6 +22,17 @@ def get_color (smpl):
                     (or_int, "ORANGE", OR), (ye_int, "YELLOW", YE), (wh_int, "WHITE", WH) )
     for n in COL_TUP:
         print(f"comparing to {n[1]}")
+        tot = 0
+        # calculate difference
+        for pxl, ref in zip(smpl,n[2]):
+            tmp =pxl-ref
+            if tmp <0 :
+                diff = -tmp
+                # keep it positive
+            else:
+                diff = tmp
+            tot +=diff
+        print(f" diff for {n[1]} is {tot}")
 
 
 
@@ -30,9 +41,9 @@ cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/", "cubex.jpg")
 with Image.open(cub_img) as im:
     im.load()
     print (im.size)
-    for y in cube_smpling_pts:
-        for x in cube_smpling_pts:
-            print(f" location {x}, {y}")
+    for y_ind, y in enumerate(cube_smpling_pts):
+        for x_ind,x  in enumerate(cube_smpling_pts):
+            print(f"============\n location {x_ind}, {y_ind}\n============")
             cube_smpl = im.getpixel((x,y))
             print (cube_smpl)
             get_color(cube_smpl)
