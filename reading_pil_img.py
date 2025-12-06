@@ -11,12 +11,12 @@ CUBE2_MID = CUBE1_MID + CUBE_WIDTH
 cube_smpling_pts = (CUBE0_MID, CUBE1_MID, CUBE2_MID)
 
 def get_color (smpl):
-    RED = (255,0,0)
-    GR = (0, 255,0)
-    BL = (0,0,255)
-    OR = (200,80,80)
-    YE = (0, 255,255)
-    WH = (255,255,255)
+    RED = (181,46,40)
+    GR = (100,171,51)
+    BL = (112,185,220)
+    OR = (230,104,27)
+    YE = (208,209,30)
+    WH = (115,110,90)
     red_int, gr_int,bl_int, or_int,ye_int, wh_int = (0,0,0,0,0,0)
     COL_TUP =  (  (red_int, "RED", RED),  (gr_int, "GREEN", GR), (bl_int, "BL", BL),
                     (or_int, "ORANGE", OR), (ye_int, "YELLOW", YE), (wh_int, "WHITE", WH) )
@@ -27,14 +27,14 @@ def get_color (smpl):
         for pxl, ref in zip(smpl,n[2]):
             tmp =pxl-ref
             if tmp <0 :
+                #print(f"{tmp} is neg")
                 diff = -tmp
                 # keep it positive
+                #print(f"new diff  is {diff}")
             else:
                 diff = tmp
             tot +=diff
         print(f" diff for {n[1]} is {tot}")
-
-
 
 
 cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/", "cubex.jpg")
