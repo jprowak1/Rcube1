@@ -9,6 +9,8 @@ CUBE0_MID = HALF_CUBE_WIDTH
 CUBE1_MID = CUBE0_MID + CUBE_WIDTH
 CUBE2_MID = CUBE1_MID + CUBE_WIDTH
 cube_smpling_pts = (CUBE0_MID, CUBE1_MID, CUBE2_MID)
+img_tup = ("cube0.jpeg", "cube1.jpeg", "cube2.jpeg", "cube3.jpeg", "cube4.jpeg", "cube5.jpeg")
+
 
 def get_color (smpl):
     RED = (181,46,40)
@@ -36,16 +38,16 @@ def get_color (smpl):
             tot +=diff
         print(f" diff for {n[1]} is {tot}")
 
-
-cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/", "cubex.jpg")
-with Image.open(cub_img) as im:
-    im.load()
-    print (im.size)
-    for y_ind, y in enumerate(cube_smpling_pts):
-        for x_ind,x  in enumerate(cube_smpling_pts):
-            print(f"============\n location {x_ind}, {y_ind}\n============")
-            cube_smpl = im.getpixel((x,y))
-            print (cube_smpl)
-            get_color(cube_smpl)
+for cub_fil in img_tup:
+    cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/cubepics_A0", cub_fil)
+    with Image.open(cub_img) as im:
+        im.load()
+        print (im.size)
+        for y_ind, y in enumerate(cube_smpling_pts):
+            for x_ind,x  in enumerate(cube_smpling_pts):
+                print(f"============\n location {x_ind}, {y_ind}\n============")
+                cube_smpl = im.getpixel((x,y))
+                print (cube_smpl)
+                get_color(cube_smpl)
 
 
