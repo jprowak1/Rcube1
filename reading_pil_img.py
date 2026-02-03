@@ -2,7 +2,7 @@
 from PIL import Image
 import os
 # image is 3020 square
-CUBE_WIDTH = 100
+CUBE_WIDTH = 1000
 # middle of each horizontal pixel
 HALF_CUBE_WIDTH = CUBE_WIDTH/2
 CUBE0_MID = HALF_CUBE_WIDTH
@@ -14,21 +14,23 @@ img_tup = ("cube0.jpeg", "cube1.jpeg", "cube2.jpeg", "cube3.jpeg", "cube4.jpeg",
 
 
 def get_color (smpl):
-    RED = (181,46,40)
-    GR = (0,220,0)
+    # identify the pxl (smpl) color by comparing to the reference colors
+    RED = (181,6,4)
+    GR = (100,180,70)
     #BL = (112,185,220)
-    BL = (0,0,255)
-    OR = (230,104,27)
-    YE = (150,180,0)
+    BL = (0,90,180)
+    OR = (240,134,27)
+    YE = (250,200,60)
     #WH = (115,110,99
-    WH = (255,255,255)
+    WH = (255,230,178)
     red_int, gr_int,bl_int, or_int,ye_int, wh_int = (0,0,0,0,0,0)
     COL_TUP =  (  (red_int, "RED", RED),  (gr_int, "GREEN", GR), (bl_int, "BL", BL),
                     (or_int, "ORANGE", OR), (ye_int, "YELLOW", YE), (wh_int, "WHITE", WH) )
+    min = 1000
     for n in COL_TUP:
-        print(f"comparing to {n[1]}")
+        #print(f"comparing to {n[1]}")
         tot = 0
-        # calculate difference
+        # calculate difference. must use zip or numpy, since subtraction is not supported for tuples
         for pxl, ref in zip(smpl,n[2]):
             tmp =pxl-ref
             if tmp <0 :
@@ -39,20 +41,26 @@ def get_color (smpl):
             else:
                 diff = tmp
             tot +=diff
-        print(f" diff for {n[1]} is {tot}")
+        if tot < min:
+            min = tot
+            color_result = n
+    #print(f" color_result = {n[1]}")
+    return color_result
 
 for cub_fil in img_tup:
-    print(f"#############\nchecking cubeface {cub_fil}\n#############\n")
+    print(f"#############\nchecking cubeface {cub_fil}\n#############")
     #cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/cubepics_A0", cub_fil)
-    cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/cubepics_cal", cub_fil)
+    cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/cubepics_A2", cub_fil)
     with Image.open(cub_img) as im:
         im.load()
         print (im.size)
+        # loop over all rows and columns for all 9 cube faces, grabbing a pxl in the approx center of cube face
         for y_ind, y in enumerate(cube_smpling_pts):
             for x_ind,x  in enumerate(cube_smpling_pts):
-                print(f"============\n location {x_ind},{x}, -- {y_ind},{y}\n============")
+                #print(f"============\n location {x_ind},{x}, -- {y_ind},{y}\n============")
                 cube_smpl = im.getpixel((x,y))
-                print (cube_smpl)
-                get_color(cube_smpl)
+                #print (cube_smpl)
+                cube_face_color = get_color(cube_smpl)
+                print (f" cube_face_color = {cube_face_color[1]}")
 
 
