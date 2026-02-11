@@ -10,17 +10,17 @@ CUBE1_MID = CUBE0_MID + CUBE_WIDTH
 CUBE2_MID = CUBE1_MID + CUBE_WIDTH
 cube_smpling_pts = (CUBE0_MID, CUBE1_MID, CUBE2_MID)
 img_tup = ("cube0.jpeg", "cube1.jpeg", "cube2.jpeg", "cube3.jpeg", "cube4.jpeg", "cube5.jpeg")
-#img_tup = ("cube1.jpeg",)
+#img_tup = ("cube3.jpeg",)
 
 
 def get_color (smpl):
     # identify the pxl (smpl) color by comparing to the reference colors
     RED = (181,6,4)
-    GR = (100,180,70)
+    GR = (20,220,70)
     #BL = (112,185,220)
-    BL = (0,90,180)
+    BL = (0,90,220)
     OR = (240,134,27)
-    YE = (250,200,60)
+    YE = (250,160,6)
     #WH = (115,110,99
     WH = (255,230,178)
     red_int, gr_int,bl_int, or_int,ye_int, wh_int = (0,0,0,0,0,0)
@@ -32,6 +32,7 @@ def get_color (smpl):
         tot = 0
         # calculate difference. must use zip or numpy, since subtraction is not supported for tuples
         for pxl, ref in zip(smpl,n[2]):
+            #print(f" pxl {pxl}, ref {ref}")
             tmp =pxl-ref
             if tmp <0 :
                 #print(f"{tmp} is neg")
@@ -40,8 +41,10 @@ def get_color (smpl):
                 #print(f"new diff  is {diff}")
             else:
                 diff = tmp
+            #print(f" diff = {diff}")
             tot +=diff
         if tot < min:
+            #print (f"tot {tot} is less than min {min}")
             min = tot
             color_result = n
     #print(f" color_result = {n[1]}")
@@ -61,6 +64,6 @@ for cub_fil in img_tup:
                 cube_smpl = im.getpixel((x,y))
                 #print (cube_smpl)
                 cube_face_color = get_color(cube_smpl)
-                print (f" cube_face_color = {cube_face_color[1]}")
+                print (f" ============= CUBE_FACE_COLOR = {cube_face_color[1]}")
 
 
