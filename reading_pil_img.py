@@ -15,14 +15,14 @@ img_tup = ("cube0.jpeg", "cube1.jpeg", "cube2.jpeg", "cube3.jpeg", "cube4.jpeg",
 
 def get_color (smpl):
     # identify the pxl (smpl) color by comparing to the reference colors
-    RED = (181,6,4)
+    RED = (220,6,4)
     GR = (20,220,70)
     #BL = (112,185,220)
     BL = (0,90,220)
-    OR = (240,134,27)
-    YE = (250,160,6)
+    OR = (231,124,31)
+    YE = (206,176,6)
     #WH = (115,110,99
-    WH = (255,230,178)
+    WH = (230,230,200)
     red_int, gr_int,bl_int, or_int,ye_int, wh_int = (0,0,0,0,0,0)
     COL_TUP =  (  (red_int, "RED", RED),  (gr_int, "GREEN", GR), (bl_int, "BL", BL),
                     (or_int, "ORANGE", OR), (ye_int, "YELLOW", YE), (wh_int, "WHITE", WH) )
