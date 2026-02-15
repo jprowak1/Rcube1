@@ -23,9 +23,11 @@ def get_color (smpl):
     YE = (206,176,6)
     #WH = (115,110,99
     WH = (230,230,200)
-    red_int, gr_int,bl_int, or_int,ye_int, wh_int = (0,0,0,0,0,0)
-    COL_TUP =  (  (red_int, "RED", RED),  (gr_int, "GREEN", GR), (bl_int, "BL", BL),
-                    (or_int, "ORANGE", OR), (ye_int, "YELLOW", YE), (wh_int, "WHITE", WH) )
+    red_chr, gr_chr,bl_chr, or_chr,ye_chr, wh_chr = ("R","F","B","L","D","U")
+    red_pos, gr_pos, bl_pos, or_pos, ye_pos, wh_pos = (1,2,5,4,3,0)
+    COL_TUP =  (  (red_chr, "RED", RED, red_pos),  (gr_chr, "GREEN", GR, gr_pos), (bl_chr, "BL", BL, bl_pos),
+                    (or_chr, "ORANGE", OR,or_pos), (ye_chr, "YELLOW", YE, ye_pos), (wh_chr, "WHITE", WH,wh_pos) )
+
     min = 1000
     for n in COL_TUP:
         #print(f"comparing to {n[1]}")
@@ -50,6 +52,7 @@ def get_color (smpl):
     #print(f" color_result = {n[1]}")
     return color_result
 
+cub_st = [ [] for _ in range(6)]
 for cub_fil in img_tup:
     print(f"#############\nchecking cubeface {cub_fil}\n#############")
     #cub_img = os.path.join("/mnt/chromeos/MyFiles/Downloads/cubepics_A0", cub_fil)
@@ -57,6 +60,7 @@ for cub_fil in img_tup:
     with Image.open(cub_img) as im:
         im.load()
         print (im.size)
+        face_str =[]
         # loop over all rows and columns for all 9 cube faces, grabbing a pxl in the approx center of cube face
         for y_ind, y in enumerate(cube_smpling_pts):
             for x_ind,x  in enumerate(cube_smpling_pts):
@@ -64,6 +68,14 @@ for cub_fil in img_tup:
                 cube_smpl = im.getpixel((x,y))
                 #print (cube_smpl)
                 cube_face_color = get_color(cube_smpl)
-                print (f" ============= CUBE_FACE_COLOR = {cube_face_color[1]}")
+                #print (f" ============= CUBE_FACE_COLOR = {cube_face_color[1]}")
+                face_str.append(cube_face_color[0])
+        print (f" FACE_STR = {face_str}")
+        cub_st[cube_face_color[3]] = face_str
+print (f"CUBE_ST = {cub_st}")
+
+    
+
+
 
 
