@@ -1,6 +1,7 @@
 # reading file pillow
 from PIL import Image
 import os
+import datetime
 # image is 3020 square
 CUBE_WIDTH = 1000
 # middle of each horizontal pixel
@@ -70,9 +71,16 @@ for cub_fil in img_tup:
                 cube_face_color = get_color(cube_smpl)
                 #print (f" ============= CUBE_FACE_COLOR = {cube_face_color[1]}")
                 face_str.append(cube_face_color[0])
-        print (f" FACE_STR = {face_str}")
+        #print (f" FACE_STR = {face_str}")
         cub_st[cube_face_color[3]] = face_str
 print (f"CUBE_ST = {cub_st}")
+whole_str = ""
+for cub_str in cub_st:
+    whole_str += "".join(cub_str)
+print(f" WHOLE_STR = {whole_str}")
+filename = f"cube_log -{datetime.datetime.now():%Y-%m-%d %H-%m-%d}.txt"
+with open( filename, "w") as fh:
+    fh.write(whole_str)
 
     
 
