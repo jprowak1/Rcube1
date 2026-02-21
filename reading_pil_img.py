@@ -65,17 +65,19 @@ for cub_fil in img_tup:
         # loop over all rows and columns for all 9 cube faces, grabbing a pxl in the approx center of cube face
         for y_ind, y in enumerate(cube_smpling_pts):
             for x_ind,x  in enumerate(cube_smpling_pts):
-                #print(f"============\n location {x_ind},{x}, -- {y_ind},{y}\n============")
+                print(f"============\n location {x_ind},{x}, -- {y_ind},{y}\n============")
                 cube_smpl = im.getpixel((x,y))
                 #print (cube_smpl)
                 cube_face_color = get_color(cube_smpl)
-                #print (f" ============= CUBE_FACE_COLOR = {cube_face_color[1]}")
+                print (f" ============= CUBE_FACE_COLOR = {cube_face_color[1]}")
                 face_str.append(cube_face_color[0])
-        #print (f" FACE_STR = {face_str}")
+                # need to save the color at x_ind =1, y_ind = 1, as this determines position of the face_str in the cub_st list
+        print (f" FACE_STR = {face_str}, placing in {cube_face_color[3]}")
         cub_st[cube_face_color[3]] = face_str
 print (f"CUBE_ST = {cub_st}")
 whole_str = ""
 for cub_str in cub_st:
+    print (f"cub_str = {cub_str}")
     whole_str += "".join(cub_str)
 print(f" WHOLE_STR = {whole_str}")
 filename = f"cube_log -{datetime.datetime.now():%Y-%m-%d %H-%m-%d}.txt"
