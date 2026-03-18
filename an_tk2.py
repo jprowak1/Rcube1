@@ -4,6 +4,9 @@ import random
 import time
 from matplotlib.animation import FuncAnimation
 import tkinter as tk
+from tkinter import filedialog
+
+
 
 
 fig, axs = plt.subplots(4,3)
@@ -40,7 +43,7 @@ def reset_cube_array():
     global cube_arr
     for i, val in enumerate([white,orange,green,yellow,blue,red]):
         cube_arr[i] = np.full((3,3),val  )
-    print(f" RESETING cube_arr  {cube_arr}")
+    #print(f" RESETING cube_arr  {cube_arr}")
 
 const_arr0=np.array(([1,5,5],[5,8,5],[5,5,8]))
 
@@ -164,9 +167,62 @@ def upd_cube(mv):
 
     return
 
+def load_cube_movs():
+    moves = {"F", "B", "U", "D", "L", "R"}
+    nums = {"1", "2", "3"}
+    fname = filedialog.askopenfilename(
+        initialdir="/My files", # Start directory (use "/" for root or "C:/" on Windows)
+        title="Select a file",
+        filetypes=(
+            ("Text files", "*.txt"),
+            ("All files", "*.*")
+        )
+    )
+    # read the entire txt file
+    with open(fname, 'r') as myfile:
+        content = myfile.read()
+        # loop over the entire txt file, char at a time
+        for chr in content:
+            # check for UDRLFB chars
+            if (chr in moves) :
+                prev_chr = chr
+                lb.insert(tk.END,chr)
+            elif (chr in nums):
+                # repear chars for number 2 or 3
+                cntr =int(chr) -1
+                for _ in  range (cntr):
+                    lb.insert(tk.END,prev_chr)
+            # and push onto queue
+
+def load_cube_face():
+    moves = {"F", "B", "U", "D", "L", "R"}
+    nums = {"1", "2", "3"}
+    fname = filedialog.askopenfilename(
+        initialdir="/My files", # Start directory (use "/" for root or "C:/" on Windows)
+        title="Select a file",
+        filetypes=(
+            ("Text files", "*.txt"),
+            ("All files", "*.*")
+        )
+    )
+    # read the entire txt file
+    with open(fname, 'r') as myfile:
+        content = myfile.read()
+        print(content)
+        for i in [0,9,18,27,35,44]:
+            cub_lst = (content[i:(i+9)])
+            print (cub_lst)
+
+        # loop over the entire txt file, char at a time
+
+
 root = tk.Tk()
 root.title("Radiobutton")
 root.geometry("360x480")
+load_cm_but = tk.Button(root, text="Select cube move file", command=load_cube_movs)
+load_cm_but.pack()
+load_cf_but = tk.Button(root, text="Select cube face file", command=load_cube_face)
+load_cf_but.pack()
 add_to_queue = tk.Button(root, text="add RadBut to queue", command=pr_var)
 add_to_queue.pack()
 rm_fr_queue = tk.Button(root, text="rm RadBut from queue", command=rm_var)
@@ -188,6 +244,8 @@ f_tst =tk.Button(root, text="F test cube", command=f_tst)
 f_tst.pack()
 b_tst =tk.Button(root, text="B test cube", command=b_tst)
 b_tst.pack()
+
+
 # b_tst =tk.Button(root, text="B test cube", command=b_tst)
 # b_tst.pack()
 lb = tk.Listbox(root)
