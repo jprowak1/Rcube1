@@ -14,7 +14,7 @@ fig, axs = plt.subplots(4,3)
 iml = []
 count = 0
 const_arr =[]
-lifo =[]
+fifo =[]
 rdy = True
 lst_but =0
 # red 6.2, yell 4.8, green 3, blue 2, orange 5.6, white 9.9
@@ -22,7 +22,8 @@ lst_but =0
 #     1
 #  2  3  4
 #     5  
-red,green,yellow,orange,blue,white =[6.2,3,4.8,5.6,2,9.9]
+red,green,yellow,orange,blue,white =[6.2, 3, 4.8, 5.6, 2, 9.9]
+rfd_map ={'R':6.2,'F':3,'D':4.8,'L':5.6,'B':2,'U':9.9}
 cube_arr = np.empty((6,3,3))
 #------------------------------------
 # Patterns to evaluate move commands
@@ -122,17 +123,17 @@ def res_cube():
     rdy = True
 
 def lst_move():
-    global cube_arr, lifo
-    if lifo:
-        cube_arr = np.copy(lifo.pop())
+    global cube_arr, fifo
+    if fifo:
+        cube_arr = np.copy(fifo.pop())
     else:
-        print("LIFO is empty")
-    # print(" Popping {lifo}")
+        print("fifo is empty")
+    # print(" Popping {fifo}")
 
 
 def upd_cube(mv):
-    global cube_arr,lifo
-    lifo.append(np.copy(cube_arr))
+    global cube_arr,fifo
+    fifo.append(np.copy(cube_arr))
     
     if(mv == "U"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,0]), np.copy(cube_arr[4,0]), np.copy(cube_arr[0,2]),np.copy(cube_arr[2,0])
@@ -144,6 +145,9 @@ def upd_cube(mv):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,2]), np.copy(cube_arr[3,:,2]),np.copy(cube_arr[1,:,-1]),np.copy(cube_arr[0,:,2])
         cube_arr[3,:,2], cube_arr[1,:,2], cube_arr[0,:,2],cube_arr[5,:,2] = tmp5, tmp3, tmp1,tmp0
         cube_arr[4] =np.rot90(cube_arr[4])
+        cube_arr[4] =np.rot90(cube_arr[4])
+        cube_arr[4] =np.rot90(cube_arr[4])
+
     elif (mv == "D"):
         tmp3, tmp4, tmp0,tmp2 =np.copy(cube_arr[3,2]), np.copy(cube_arr[4,2]), np.copy(cube_arr[0,0]),np.copy(cube_arr[2,2])
         cube_arr[2,2],cube_arr[3,2],cube_arr[4,2],cube_arr[0,0] = np.flip(tmp0),tmp2,tmp3,np.flip(tmp4)
@@ -154,16 +158,22 @@ def upd_cube(mv):
         tmp5, tmp3, tmp1,tmp0 = np.copy(cube_arr[5,:,0]), np.copy(cube_arr[3,:,0]),np.copy(cube_arr[1,:,0]),np.copy(cube_arr[0,:,0])
         cube_arr[3,:,0], cube_arr[1,:,0], cube_arr[0,:,0],cube_arr[5,:,0] = tmp1, (tmp0), (tmp5),tmp3
         cube_arr[2] = np.rot90(cube_arr[2])
+        cube_arr[2] = np.rot90(cube_arr[2])
+        cube_arr[2] = np.rot90(cube_arr[2])
 
     elif (mv == "B"):
         tmp1, tmp2, tmp4,tmp5 = np.copy(cube_arr[1,0,:]), np.copy(cube_arr[2,:,0]), np.copy(cube_arr[4,:,2]),np.copy(cube_arr[5,2,:])
         cube_arr[1,0,:],cube_arr[2,:,0], cube_arr[4,:,2], cube_arr[5,2,:] = tmp4,np.flip(tmp1),np.flip(tmp5), np.copy(tmp2)
         cube_arr[0] = np.rot90(cube_arr[0])
-
+        cube_arr[0] = np.rot90(cube_arr[0])
+        cube_arr[0] = np.rot90(cube_arr[0])
     elif (mv == "F"):
         tmp2, tmp1, tmp4, tmp5 = np.copy(cube_arr[2,:,2]), np.copy(cube_arr[1,2,:]), np.copy(cube_arr[4,:,0]), np.copy(cube_arr[5,0,:])
         cube_arr[2,:,2], cube_arr[1,2,:], cube_arr[4,:,0], cube_arr[5,0,:] = tmp5, np.flip(tmp2), (tmp1),  np.flip(tmp4)
         cube_arr[3] =np.rot90(cube_arr[3])
+        cube_arr[3] =np.rot90(cube_arr[3])
+        cube_arr[3] =np.rot90(cube_arr[3])
+
 
     return
 
@@ -195,8 +205,6 @@ def load_cube_movs():
             # and push onto queue
 
 def load_cube_face():
-    moves = {"F", "B", "U", "D", "L", "R"}
-    nums = {"1", "2", "3"}
     fname = filedialog.askopenfilename(
         initialdir="/My files", # Start directory (use "/" for root or "C:/" on Windows)
         title="Select a file",
@@ -208,10 +216,16 @@ def load_cube_face():
     # read the entire txt file
     with open(fname, 'r') as myfile:
         content = myfile.read()
-        print(content)
-        for i in [0,9,18,27,35,44]:
+        #print(content)
+        for cube_num, i in zip( [1,4,3,5,2,0],[0,9,18,27,36,45]):
             cub_lst = (content[i:(i+9)])
             print (cub_lst)
+            tmp_arr = np.array(list(map(rfd_map.get,((cub_lst)))))
+            if (cube_num==0):
+                tmp_arr = np.rot90(tmp_arr.reshape(3,3))
+                tmp_arr = np.rot90(tmp_arr)
+            cube_arr[cube_num] = tmp_arr.reshape(3,3)
+
 
         # loop over the entire txt file, char at a time
 
@@ -276,6 +290,6 @@ def animate(i):
         return fig,
         rdy = False
 
-anim = FuncAnimation(fig, animate, init_func= init, interval=800)
+anim = FuncAnimation(fig, animate, init_func= init, interval=800,save_count=10000)
 plt.show()
 root.mainloop()
